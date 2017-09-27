@@ -1,37 +1,49 @@
 package HW12Rest;
 
-import javax.ws.rs.Path;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+
 
 import java.util.ArrayList;
 
-import javax.ws.rs.*;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 
 @Path("/tickets")
 public class RestTicket {
 	EntryManager entryManager = new EntryManager();
-
+	
+	
 	@GET
-	@Path("/AllTickets")
+	@Path("/showAllTickets")
 	@Produces(MediaType.APPLICATION_JSON)
-		public ArrayList<Ticket> showAllusers() {
+		public Ticket showAllusers() {
+		
+		Ticket ticket=new Ticket("sara","tehran", "shiraz", "2/7/63", 124, 48757);
+		ArrayList<Ticket> tickets=new ArrayList<Ticket>();
+		tickets.add(ticket);
+		//not ok with getting the array from entry manager
+		//tickets = entryManager.showAllTickets();
+		//System.out.println(tickets.size());
+		System.out.println("new");
 
-		ArrayList<Ticket> tickets = entryManager.showAllTickets();
-		System.out.println(tickets.size());
-		/*ArrayList<String> test=new ArrayList<String>();
-		test.add("alaki");
-		test.add("bikhodi");*/
-
-		return tickets;
+		return ticket;
 	}
 
 	
 	
-	@GET
-	@Path("/test")
-	public Response test(){
-		ArrayList<Ticket> tickets = entryManager.showAllTickets();
-		return Response.status(200).entity("mina").build();
+	@POST
+	@Path("/creatTicket")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response creatTicket(Ticket ticket){
+		//entryManager.addTicket(ticket);
+		
+		
+		return Response.status(200).entity("saved successfully").build();
 	}
 }
