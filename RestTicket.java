@@ -24,13 +24,20 @@ public class RestTicket {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response creatTicket(Ticket ticket) throws SQLException {
+		boolean status=false;
 		try {
-			entryManager.addTicket(ticket);
+			status=entryManager.addTicket(ticket);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		if(status){
+			return Response.status(200).entity("saved successfully").build();
+		}else{
+			return Response.status(200).entity("wrong information").build();
+		}
 
-		return Response.status(200).entity("saved successfully").build();
+		
 	}
 
 	// showing all tickets
@@ -86,7 +93,18 @@ public class RestTicket {
 		
 	}
 	
-
+	//delete a ticket with ID
+	@DELETE
+	@Path("/{ticketNumber}")
+	public Response deleteTicketByCode(@PathParam("ticketNumber") int ticketNumber){
+		boolean status=entryManager.DeleteTicketByCode(ticketNumber);
+		if(status){
+			return Response.status(200).entity("deleted successfully").build();
+		}else{
+			return Response.status(200).entity("wrong ticket code").build();
+		}
+	}
+	
 
 
 }
