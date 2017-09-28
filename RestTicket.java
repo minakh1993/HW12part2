@@ -19,6 +19,7 @@ import javax.ws.rs.core.*;
 @Path("/tickets")
 public class RestTicket {
 	EntryManager entryManager = new EntryManager();
+	EntryValidation entryValidation= new EntryValidation();
 
 	// inserting a ticket
 	@POST
@@ -26,6 +27,16 @@ public class RestTicket {
 	public Response creatTicket(Ticket ticket) throws SQLException {
 		boolean status=false;
 		try {
+			if(!entryValidation.dateValidation(ticket.getDate())){
+				//means the date is incorrect
+				return Response.status(200).entity("wrong date entry").build();
+			}
+			
+			if(!entryValidation.flightNumberValidation(ticket.getFlightNumber())){
+				//means the flight number is not 3 digits
+				return Response.status(200).entity("wrong filght number").build();
+			}
+			//if these two entry is correct
 			status=entryManager.addTicket(ticket);
 			
 		} catch (Exception e) {
@@ -84,7 +95,18 @@ public class RestTicket {
 	@Path("/{ticketNumber}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response updateTicketByCode(Ticket ticket, @PathParam("ticketNumber") int ticketNumber){
+		if(!entryValidation.dateValidation(ticket.getDate())){
+			//means the date is incorrect
+			return Response.status(200).entity("wrong date entry").build();
+		}
+		
+		if(!entryValidation.flightNumberValidation(ticket.getFlightNumber())){
+			//means the flight number is not 3 digits
+			return Response.status(200).entity("wrong filght number").build();
+		}
+		
 		boolean status=entryManager.updateTicket(ticket, ticketNumber);
+		
 		if(status){
 			return Response.status(200).entity("updated successfully").build();
 		}else{
