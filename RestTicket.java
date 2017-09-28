@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -21,12 +22,10 @@ import javax.ws.rs.core.*;
 
 
 @Path("/tickets")
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
 public class RestTicket {
 	EntryManager entryManager = new EntryManager();
 	
-	
+	//inserting a ticket
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response creatTicket(Ticket ticket) throws SQLException{
@@ -39,9 +38,10 @@ public class RestTicket {
 		return Response.status(200).entity("saved successfully").build();
 	}
 	
+	//showing all tickets
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-		public ArrayList<Ticket> showAllusers()  {
+	public ArrayList<Ticket> showAllusers()  {
 		ArrayList<Ticket> tickets=new ArrayList<Ticket>();
 		try{
 		tickets = entryManager.showAllTickets();
@@ -52,7 +52,14 @@ public class RestTicket {
 		return tickets;
 	}
 
-	
+	//delete all tickets
+	@DELETE
+	@Path("/deleteAll")
+	public Response deleteALLTickets(){
+		entryManager.deleteAllTickets();
+		return Response.status(200).entity("deleted successfully").build();
+		
+	}
 	
 	
 }

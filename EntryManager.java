@@ -58,4 +58,17 @@ public class EntryManager {
 			
 		}
 	}
+
+    public void deleteAllTickets(){
+    	try{
+    		Statement stmt=conn.createStatement();
+    		stmt.executeUpdate("delete  from ticket.ticket");
+    		
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+    }
+
+
+
 }
