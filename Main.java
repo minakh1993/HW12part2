@@ -6,8 +6,9 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		EntryManager entryManager=new EntryManager();
-		entryManager.showAllTickets();
-		System.out.println(entryManager.showAllTickets().get(0).getCustomerName());
+		//entryManager.showAllTickets();
+		System.out.println(entryManager.showAllTickets().size());
+		entryManager.addTicket(new Ticket("sara","tehran", "shiraz", "2/7/63", 124, 48757));
 
 	}
 

@@ -69,6 +69,22 @@ public class EntryManager {
     	}
     }
 
+    public Ticket showTicketByNumber(int id){
+    	Ticket ticket = null;
+    	try{
+    		Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from ticket.ticket where ticket.ticket_code='"+id+"'");
+    		if(rs.next()){
+    			//means we have found that ticket
+    			ticket=new Ticket(rs.getString(6), rs.getString(2), rs.getString(3), rs.getString(5), rs.getInt(4), rs.getInt(1));
+    		}
+    		
+    	}catch(Exception e){
+    		
+    	}
+    	
+    	return ticket;
+    }
 
 
 }

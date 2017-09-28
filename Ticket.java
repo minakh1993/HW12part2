@@ -65,5 +65,8 @@ public class Ticket {
 	public void setTicketCode(int ticketCode) {
 		this.ticketCode = ticketCode;
 	}
+	public Ticket(){
+		
+	}
 
 }
