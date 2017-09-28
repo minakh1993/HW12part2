@@ -21,6 +21,8 @@ import javax.ws.rs.core.*;
 
 
 @Path("/tickets")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public class RestTicket {
 	EntryManager entryManager = new EntryManager();
 	
@@ -33,7 +35,6 @@ public class RestTicket {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		System.out.println("are we here");
 		
 		return Response.status(200).entity("saved successfully").build();
 	}
