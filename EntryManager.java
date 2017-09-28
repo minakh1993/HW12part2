@@ -86,5 +86,28 @@ public class EntryManager {
     	return ticket;
     }
 
+    public boolean updateTicket(Ticket ticket, int id){
+    	try{
+    		Statement stmt=conn.createStatement();
+    		int temp=stmt.executeUpdate("update ticket.ticket set `ticket_code` "
+    				+ "= '"+ticket.getTicketCode()+"', `orgin` ="
+    						+ " '"+ticket.getOrigin()+"', `destination` ="
+    								+ " '"+ticket.getDestination()+"',"
+    										+ " `flight_number` = '"+ticket.getFlightNumber()+"'"
+    												+ ", `date` = '"+ticket.getDate()+"', `clinet_name` ="
+    														+ " '"+ticket.getCustomerName()+"' "
+    																+ "where ticket_code='"+id+"' ");
+    		if(temp==1){
+    			return true;
+    		}else{
+    			return false;
+    		}
+    		
+    	}catch(Exception e){
+    		e.printStackTrace();
+    		return false;
+    	}
+    	
+    }
 
 }

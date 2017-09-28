@@ -8,6 +8,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -72,6 +73,19 @@ public class RestTicket {
 	}
 
 	//update ticket with ID
+	@PUT
+	@Path("/{ticketNumber}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response updateTicketByCode(Ticket ticket, @PathParam("ticketNumber") int ticketNumber){
+		boolean status=entryManager.updateTicket(ticket, ticketNumber);
+		if(status){
+			return Response.status(200).entity("updated successfully").build();
+		}else{
+			return Response.status(200).entity("wrong information. enter again").build();
+		}
+		
+	}
+	
 
 
 

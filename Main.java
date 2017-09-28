@@ -8,8 +8,8 @@ public class Main {
 		EntryManager entryManager=new EntryManager();
 		//entryManager.showAllTickets();
 		System.out.println(entryManager.showAllTickets().size());
-		entryManager.addTicket(new Ticket("sara","tehran", "shiraz", "2/7/63", 124, 48757));
-
+		//entryManager.addTicket(new Ticket("sara","tehran", "shiraz", "2/7/63", 124, 48757));
+        System.out.println(entryManager.updateTicket(new Ticket("mohammad","tehran", "shiraz", "2/7/63", 124, 48757), 890));
 	}
 
 }
